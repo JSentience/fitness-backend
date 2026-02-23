@@ -9,22 +9,22 @@ import { PrismaService } from 'src/prisma/prisma.service'
 export class JwtStrategy extends PassportStrategy(Strategy) {
 	constructor(
 		private configService: ConfigService,
-		private prisma: PrismaService,
+		private prisma: PrismaService
 	) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			secretOrKey: configService.getOrThrow<string>('JWT_SECRET'),
-			ignoreExpiration: true,
+			ignoreExpiration: true
 		})
 	}
 
-	async validate({ id }: { id: string }): Promise<User | null> {
+	validate({ id }: { id: string }): Promise<User | null> {
 		return this.prisma.user.findUnique({
 			where: { id },
 			include: {
 				profile: true,
-				measurement: true,
-			},
+				measurements: true
+			}
 		})
 	}
 }

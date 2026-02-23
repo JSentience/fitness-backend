@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Like
@@ -29,6 +29,7 @@ export type LikeMinAggregateOutputType = {
   recipeId: string | null
   userId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type LikeMaxAggregateOutputType = {
@@ -36,6 +37,7 @@ export type LikeMaxAggregateOutputType = {
   recipeId: string | null
   userId: string | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type LikeCountAggregateOutputType = {
@@ -43,6 +45,7 @@ export type LikeCountAggregateOutputType = {
   recipeId: number
   userId: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -52,6 +55,7 @@ export type LikeMinAggregateInputType = {
   recipeId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type LikeMaxAggregateInputType = {
@@ -59,6 +63,7 @@ export type LikeMaxAggregateInputType = {
   recipeId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type LikeCountAggregateInputType = {
@@ -66,6 +71,7 @@ export type LikeCountAggregateInputType = {
   recipeId?: true
   userId?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -146,6 +152,7 @@ export type LikeGroupByOutputType = {
   recipeId: string
   userId: string
   createdAt: Date
+  updatedAt: Date
   _count: LikeCountAggregateOutputType | null
   _min: LikeMinAggregateOutputType | null
   _max: LikeMaxAggregateOutputType | null
@@ -174,6 +181,7 @@ export type LikeWhereInput = {
   recipeId?: Prisma.StringFilter<"Like"> | string
   userId?: Prisma.StringFilter<"Like"> | string
   createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   recipe?: Prisma.XOR<Prisma.RecipeScalarRelationFilter, Prisma.RecipeWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -183,6 +191,7 @@ export type LikeOrderByWithRelationInput = {
   recipeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   recipe?: Prisma.RecipeOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -196,6 +205,7 @@ export type LikeWhereUniqueInput = Prisma.AtLeast<{
   recipeId?: Prisma.StringFilter<"Like"> | string
   userId?: Prisma.StringFilter<"Like"> | string
   createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Like"> | Date | string
   recipe?: Prisma.XOR<Prisma.RecipeScalarRelationFilter, Prisma.RecipeWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "recipeId_userId">
@@ -205,6 +215,7 @@ export type LikeOrderByWithAggregationInput = {
   recipeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.LikeCountOrderByAggregateInput
   _max?: Prisma.LikeMaxOrderByAggregateInput
   _min?: Prisma.LikeMinOrderByAggregateInput
@@ -218,11 +229,13 @@ export type LikeScalarWhereWithAggregatesInput = {
   recipeId?: Prisma.StringWithAggregatesFilter<"Like"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Like"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Like"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Like"> | Date | string
 }
 
 export type LikeCreateInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   recipe: Prisma.RecipeCreateNestedOneWithoutLikesInput
   user: Prisma.UserCreateNestedOneWithoutLikesInput
 }
@@ -232,11 +245,13 @@ export type LikeUncheckedCreateInput = {
   recipeId: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutLikesNestedInput
 }
@@ -246,6 +261,7 @@ export type LikeUncheckedUpdateInput = {
   recipeId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeCreateManyInput = {
@@ -253,11 +269,13 @@ export type LikeCreateManyInput = {
   recipeId: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeUncheckedUpdateManyInput = {
@@ -265,6 +283,7 @@ export type LikeUncheckedUpdateManyInput = {
   recipeId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeRecipeIdUserIdCompoundUniqueInput = {
@@ -277,6 +296,7 @@ export type LikeCountOrderByAggregateInput = {
   recipeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LikeMaxOrderByAggregateInput = {
@@ -284,6 +304,7 @@ export type LikeMaxOrderByAggregateInput = {
   recipeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LikeMinOrderByAggregateInput = {
@@ -291,6 +312,7 @@ export type LikeMinOrderByAggregateInput = {
   recipeId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type LikeListRelationFilter = {
@@ -390,6 +412,7 @@ export type LikeUncheckedUpdateManyWithoutUserNestedInput = {
 export type LikeCreateWithoutRecipeInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutLikesInput
 }
 
@@ -397,6 +420,7 @@ export type LikeUncheckedCreateWithoutRecipeInput = {
   id?: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeCreateOrConnectWithoutRecipeInput = {
@@ -433,11 +457,13 @@ export type LikeScalarWhereInput = {
   recipeId?: Prisma.StringFilter<"Like"> | string
   userId?: Prisma.StringFilter<"Like"> | string
   createdAt?: Prisma.DateTimeFilter<"Like"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Like"> | Date | string
 }
 
 export type LikeCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
+  updatedAt?: Date | string
   recipe: Prisma.RecipeCreateNestedOneWithoutLikesInput
 }
 
@@ -445,6 +471,7 @@ export type LikeUncheckedCreateWithoutUserInput = {
   id?: string
   recipeId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeCreateOrConnectWithoutUserInput = {
@@ -477,11 +504,13 @@ export type LikeCreateManyRecipeInput = {
   id?: string
   userId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeUpdateWithoutRecipeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutLikesNestedInput
 }
 
@@ -489,23 +518,27 @@ export type LikeUncheckedUpdateWithoutRecipeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeUncheckedUpdateManyWithoutRecipeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeCreateManyUserInput = {
   id?: string
   recipeId: string
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type LikeUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipe?: Prisma.RecipeUpdateOneRequiredWithoutLikesNestedInput
 }
 
@@ -513,12 +546,14 @@ export type LikeUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   recipeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type LikeUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   recipeId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -528,6 +563,7 @@ export type LikeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   recipeId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   recipe?: boolean | Prisma.RecipeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
@@ -537,6 +573,7 @@ export type LikeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   recipeId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   recipe?: boolean | Prisma.RecipeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
@@ -546,6 +583,7 @@ export type LikeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   recipeId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   recipe?: boolean | Prisma.RecipeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["like"]>
@@ -555,9 +593,10 @@ export type LikeSelectScalar = {
   recipeId?: boolean
   userId?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type LikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "recipeId" | "userId" | "createdAt", ExtArgs["result"]["like"]>
+export type LikeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "recipeId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["like"]>
 export type LikeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipe?: boolean | Prisma.RecipeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -582,6 +621,7 @@ export type $LikePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     recipeId: string
     userId: string
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["like"]>
   composites: {}
 }
@@ -1011,6 +1051,7 @@ export interface LikeFieldRefs {
   readonly recipeId: Prisma.FieldRef<"Like", 'String'>
   readonly userId: Prisma.FieldRef<"Like", 'String'>
   readonly createdAt: Prisma.FieldRef<"Like", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Like", 'DateTime'>
 }
     
 

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model BodyMeasurement
@@ -397,7 +397,7 @@ export type BodyMeasurementCreateInput = {
   nutritionGoal?: $Enums.NutritionGoal | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutMeasurementInput
+  user: Prisma.UserCreateNestedOneWithoutMeasurementsInput
 }
 
 export type BodyMeasurementUncheckedCreateInput = {
@@ -429,7 +429,7 @@ export type BodyMeasurementUpdateInput = {
   nutritionGoal?: Prisma.NullableEnumNutritionGoalFieldUpdateOperationsInput | $Enums.NutritionGoal | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutMeasurementNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutMeasurementsNestedInput
 }
 
 export type BodyMeasurementUncheckedUpdateInput = {

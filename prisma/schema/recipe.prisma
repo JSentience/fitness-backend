@@ -1,19 +1,24 @@
 model Recipe {
   id String @id @default(cuid())
 
+  slug        String     @unique
   title       String
   description String
   calories    Int
-  cookingTime Int             @map("cooking_time")
-  difficulty  DifficultyLevel
+  cookingTime Int        @map("cooking_time")
+  difficulty  Difficulty
 
   author   User   @relation(fields: [authorId], references: [id])
   authorId String @map("author_id")
 
+  nutritionFact NutritionFact?
+
   recipeIngredients RecipeIngredient[]
   recipeSteps       RecipeStep[]
-  comments          Comment[]
-  likes             Like[]
+  tags              RecipeTag[]
+
+  comments Comment[]
+  likes    Like[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -21,36 +26,19 @@ model Recipe {
   @@map("recipes")
 }
 
-model Ingredient {
-  id String @id @default(cuid())
-
-  name        String
-  defaultUnit Unit   @map("default_unit")
-
-  recipeIngredients RecipeIngredient[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("ingredients")
-}
-
 model RecipeIngredient {
   id String @id @default(cuid())
 
-  name     String
-  iconUrl  String  @map("icon_url")
-  content  String
   quantity Decimal
-  unit     Unit
-  price    Decimal
+  unit     Unit    @default(GRAM)
 
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String @map("recipe_id")
 
-  ingredient   Ingredient  @relation(fields: [ingredientId], references: [id])
-  ingredientId String      @map("ingredient_id")
-  orderItems   OrderItem[]
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId String     @map("ingredient_id")
+
+  orderItems OrderItem[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -62,12 +50,12 @@ model RecipeIngredient {
 model RecipeStep {
   id String @id @default(cuid())
 
-  stepNumber  Int    @map("step_number")
+  order       Int
   title       String
-  instruction String
+  description String
 
   recipe   Recipe @relation(fields: [recipeId], references: [id])
-  recipeId String @map("recipe_id")
+  recipeId String @unique @map("recipe_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -75,20 +63,45 @@ model RecipeStep {
   @@map("recipe_steps")
 }
 
-enum DifficultyLevel {
-  EASY
-  MEDIUM
-  HARD
+model NutritionFact {
+  id String @id @default(cuid())
+
+  proteins      Decimal
+  fats          Decimal
+  fiber         Decimal
+  carbohydrates Decimal
+
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String @unique @map("recipe_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model RecipeTag {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  recipes Recipe[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("recipe_tags")
 }
 
 enum Unit {
-  GRAM //грамм
-  KILOGRAM //килограмм
-  MILLILITER //миллилитр
-  LITER //литр
-  CUP //чашка
-  TABLESPOON //столовая ложка
-  TEASPOON //чайная ложка
-  PIECE //штука
-  CLOVES //зубчик
+  GRAM // г
+  MILLILITER // мл
+  PIECE // шт
+  TEASPOON // ч.л.
+  TABLESPOON // ст.л.
+  CLOVES // зубчик
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
 }

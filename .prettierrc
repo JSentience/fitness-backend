@@ -1,9 +1,12 @@
 {
+    "plugins":["prettier-plugin-prisma"],
+
 	"singleQuote": true,
 	"trailingComma": "all",
 	"tabWidth": 2,
 	"semi": false,
 	"arrowParens": "avoid",
 	"useTabs": true,
-	"jsxSingleQuote": true
+	"jsxSingleQuote": true,
+	"printWidth": 80
 }

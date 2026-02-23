@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
+
 import { getGraphQLConfig } from './config/graphql.config'
 import { OrdersModule } from './orders/orders.module'
 import { PrismaModule } from './prisma/prisma.module'
@@ -18,15 +19,15 @@ import { UsersModule } from './users/users.module'
 			driver: ApolloDriver,
 			imports: [ConfigModule],
 			useFactory: getGraphQLConfig,
-			inject: [ConfigService],
+			inject: [ConfigService]
 		}),
 		AuthModule,
 		UsersModule,
 		RecipesModule,
 		OrdersModule,
-		PrismaModule,
+		PrismaModule
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService]
 })
 export class AppModule {}

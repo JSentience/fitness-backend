@@ -1,5 +1,11 @@
 {
+  "dictionaries": [
+    "ru-ru"
+  ],
   "userWords": [
-    "Codegen"
+    "cuid",
+    "пользователя",
+    "recipes Recipe[]\n",
+    "зубчик"
   ]
 }

@@ -5,13 +5,14 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
-import { PrismaService } from 'src/prisma/prisma.service'
-import { AuthInput } from './auth.input'
 import { hash, verify } from 'argon2'
-import { IAuthTokenData } from './auth.interface'
-import { UsersService } from 'src/users/users.service'
 import { Response } from 'express'
+import { Role } from 'prisma/generated/graphql/prisma/role.enum'
+import { PrismaService } from 'src/prisma/prisma.service'
+import { UsersService } from 'src/users/users.service'
 import { isDev } from 'src/utils/is-dev.util'
+import { AuthInput } from './auth.input'
+import { TAuthTokenData } from './auth.interface'
 
 @Injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
 	) {}
 
 	private EXPIRE_DAY_REFRESH_TOKEN = 3
-	private REFRESH_TOKEN_NAME = 'refreshToken'
+	REFRESH_TOKEN_NAME = 'refreshToken'
 
 	async register(input: AuthInput) {
 		try {
@@ -36,19 +37,24 @@ export class AuthService {
 					},
 				},
 			})
+
 			if (existingUser) {
 				throw new BadRequestException('User with this email already exists')
 			}
+
+			/* TODO: Move to user service */
 			const user = await this.prisma.user.create({
 				data: {
-					email,
+					email: email,
 					password: await hash(input.password),
 				},
 			})
-			const tokens = this.generateToken({
+
+			const tokens = this.generateTokens({
 				id: user.id,
-				role: user.role,
+				role: user.role as Role,
 			})
+
 			return { user, ...tokens }
 		} catch (error) {
 			throw new BadRequestException('Registration failed: ' + error)
@@ -56,21 +62,49 @@ export class AuthService {
 	}
 
 	async login(input: AuthInput) {
-		const user = await this._validateUser(input)
-		const tokens = this.generateToken({
+		const user = await this.validateUser(input)
+
+		const tokens = this.generateTokens({
 			id: user.id,
-			role: user.role,
+			role: user.role as Role,
 		})
+
 		return { user, ...tokens }
 	}
 
-	private async _validateUser(input: AuthInput) {
+	async getNewTokens(refreshToken: string) {
+		const result =
+			await this.jwt.verifyAsync<Pick<TAuthTokenData, 'id'>>(refreshToken)
+		if (!result) throw new BadRequestException('Invalid refresh token')
+
+		const user = await this.usersService.findById(result.id)
+
+		if (!user) {
+			throw new NotFoundException('User not found')
+		}
+
+		const tokens = this.generateTokens({
+			id: user.id,
+			role: user.role as Role,
+		})
+
+		return {
+			user,
+			...tokens,
+		}
+	}
+
+	private async validateUser(input: AuthInput) {
 		const email = input.email
+
 		const user = await this.usersService.findByEmail(email)
+
 		if (!user) {
 			throw new NotFoundException('Invalid email or password')
 		}
+
 		const isPasswordValid = await verify(user.password, input.password)
+
 		if (!isPasswordValid) {
 			throw new NotFoundException('Invalid email or password')
 		}
@@ -78,34 +112,40 @@ export class AuthService {
 		return user
 	}
 
-	private generateToken(data: IAuthTokenData) {
+	private generateTokens(data: TAuthTokenData) {
 		const accessToken = this.jwt.sign(data, {
 			expiresIn: '1h',
 		})
+
 		const refreshToken = this.jwt.sign(
-			{ id: data.id },
+			{
+				id: data.id,
+			},
 			{
 				expiresIn: `${this.EXPIRE_DAY_REFRESH_TOKEN}d`,
 			},
 		)
+
 		return { accessToken, refreshToken }
 	}
 
 	toggleRefreshTokenCookie(response: Response, token: string | null) {
 		const isRemoveCookie = !token
+
 		const expiresIn = isRemoveCookie
 			? new Date(0)
 			: new Date(
 					Date.now() + this.EXPIRE_DAY_REFRESH_TOKEN * 24 * 60 * 60 * 1000,
-
-					// expires.setDate(expires.getDate + this.EXPIRE_DAY_REFRESH_TOKEN)
 				)
+
+		// expires.setDate(expires.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN);
+
 		response.cookie(this.REFRESH_TOKEN_NAME, token || '', {
 			httpOnly: true,
-			domain: 'localhost', //domain for production or localhost for dev from env
+			domain: 'localhost',
 			expires: expiresIn,
+			sameSite: isDev(this.configService) ? 'none' : 'strict',
 			secure: true,
-			sameSite: isDev(this.configService) ? 'none' : 'strict', // sameSite что бы куки работали на localhost через https
 		})
 	}
 }

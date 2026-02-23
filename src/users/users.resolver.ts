@@ -1,42 +1,36 @@
-import { Query, Resolver } from '@nestjs/graphql'
-import { UsersService } from './users.service'
-import { UserProfileModel } from './models/user-profile.model'
-import { currentUser } from 'src/auth/decorators/current-user.decorator'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Role } from 'prisma/generated/graphql/prisma/role.enum'
+
+import { User } from 'prisma/generated/graphql/user'
 import { Auth } from 'src/auth/decorators/auth.decorator'
-import { Role } from 'prisma/generated/prisma/enums'
-import { UnauthorizedException } from '@nestjs/common'
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator'
+import { UserUpdateCustomInput } from './inputs/user-update.input'
+import { UsersService } from './users.service'
 
 @Resolver()
 export class UsersResolver {
 	constructor(private readonly usersService: UsersService) {}
-	@Query(() => UserProfileModel, { name: 'profile' })
+
+	@Query(() => User, { name: 'profile' })
 	@Auth()
-	getProfile(@currentUser('id') id: string) {
-		if (!id) {
-			throw new UnauthorizedException('User not authenticated')
-		}
+	getProfile(@CurrentUser('id') id: string) {
 		return this.usersService.findById(id)
 	}
 
-	// tests
+	@Mutation(() => User)
+	@Auth()
+	updateProfile(
+		@CurrentUser('id') id: string,
+		@Args('data', { type: () => UserUpdateCustomInput })
+		input: UserUpdateCustomInput,
+	) {
+		return this.usersService.updateProfile(id, input)
+	}
 
-	@Query(() => [UserProfileModel], { name: 'users' })
+	/* test */
+	@Query(() => [User], { name: 'users' })
 	@Auth(Role.ADMIN)
-	getUsers() {
+	async getUsers() {
 		return this.usersService.findAll()
 	}
 }
-
-// Compare this snippet from Users/sergey-nasonov/Yandex.Disk.localized/HTML/red-group/red-winter/red-winter-backend/src/users/models/user-profile.model.ts:
-// import { Field, ObjectType } from '@nestjs/graphql'
-// import { Role } from 'prisma/generated/prisma/enums'
-//
-// @ObjectType()
-// export class UserProfileModel {
-// 	@Field()
-// 	id: string
-//
-// 	@Field()
-// 	email: string
-//
-// 	@Field(() => Role)

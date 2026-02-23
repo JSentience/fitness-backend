@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.js'
+export type * from './prismaNamespace.js'
 
 export const Decimal = runtime.Decimal
 
@@ -51,15 +51,17 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Ingredient: 'Ingredient',
   Order: 'Order',
   OrderItem: 'OrderItem',
   Courier: 'Courier',
   Comment: 'Comment',
   Like: 'Like',
   Recipe: 'Recipe',
-  Ingredient: 'Ingredient',
   RecipeIngredient: 'RecipeIngredient',
   RecipeStep: 'RecipeStep',
+  NutritionFact: 'NutritionFact',
+  RecipeTag: 'RecipeTag',
   User: 'User',
   Profile: 'Profile',
   BodyMeasurement: 'BodyMeasurement'
@@ -71,20 +73,34 @@ export type ModelName = (typeof ModelName)[keyof typeof ModelName]
  * Enums
  */
 
-export const TransactionIsolationLevel = runtime.makeStrictEnum({
+export const TransactionIsolationLevel = {
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
   RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
-} as const)
+} as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const IngredientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  iconUrl: 'iconUrl',
+  content: 'content',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IngredientScalarFieldEnum = (typeof IngredientScalarFieldEnum)[keyof typeof IngredientScalarFieldEnum]
 
 
 export const OrderScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
   status: 'status',
+  total: 'total',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -95,9 +111,10 @@ export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof Or
 
 export const OrderItemScalarFieldEnum = {
   id: 'id',
-  orderId: 'orderId',
   recipeIngredientId: 'recipeIngredientId',
   quantity: 'quantity',
+  price: 'price',
+  orderId: 'orderId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -132,7 +149,8 @@ export const LikeScalarFieldEnum = {
   id: 'id',
   recipeId: 'recipeId',
   userId: 'userId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
@@ -140,6 +158,7 @@ export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof Like
 
 export const RecipeScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   title: 'title',
   description: 'description',
   calories: 'calories',
@@ -153,25 +172,10 @@ export const RecipeScalarFieldEnum = {
 export type RecipeScalarFieldEnum = (typeof RecipeScalarFieldEnum)[keyof typeof RecipeScalarFieldEnum]
 
 
-export const IngredientScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  defaultUnit: 'defaultUnit',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type IngredientScalarFieldEnum = (typeof IngredientScalarFieldEnum)[keyof typeof IngredientScalarFieldEnum]
-
-
 export const RecipeIngredientScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  iconUrl: 'iconUrl',
-  content: 'content',
   quantity: 'quantity',
   unit: 'unit',
-  price: 'price',
   recipeId: 'recipeId',
   ingredientId: 'ingredientId',
   createdAt: 'createdAt',
@@ -183,15 +187,39 @@ export type RecipeIngredientScalarFieldEnum = (typeof RecipeIngredientScalarFiel
 
 export const RecipeStepScalarFieldEnum = {
   id: 'id',
-  stepNumber: 'stepNumber',
+  order: 'order',
   title: 'title',
-  instruction: 'instruction',
+  description: 'description',
   recipeId: 'recipeId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type RecipeStepScalarFieldEnum = (typeof RecipeStepScalarFieldEnum)[keyof typeof RecipeStepScalarFieldEnum]
+
+
+export const NutritionFactScalarFieldEnum = {
+  id: 'id',
+  proteins: 'proteins',
+  fats: 'fats',
+  carbohydrates: 'carbohydrates',
+  fiber: 'fiber',
+  recipeId: 'recipeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NutritionFactScalarFieldEnum = (typeof NutritionFactScalarFieldEnum)[keyof typeof NutritionFactScalarFieldEnum]
+
+
+export const RecipeTagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RecipeTagScalarFieldEnum = (typeof RecipeTagScalarFieldEnum)[keyof typeof RecipeTagScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -209,8 +237,8 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const ProfileScalarFieldEnum = {
   id: 'id',
   fullName: 'fullName',
-  age: 'age',
   gender: 'gender',
+  age: 'age',
   bio: 'bio',
   userId: 'userId',
   createdAt: 'createdAt',

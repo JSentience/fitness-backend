@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Recipe
@@ -38,11 +38,12 @@ export type RecipeSumAggregateOutputType = {
 
 export type RecipeMinAggregateOutputType = {
   id: string | null
+  slug: string | null
   title: string | null
   description: string | null
   calories: number | null
   cookingTime: number | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: $Enums.Difficulty | null
   authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,11 +51,12 @@ export type RecipeMinAggregateOutputType = {
 
 export type RecipeMaxAggregateOutputType = {
   id: string | null
+  slug: string | null
   title: string | null
   description: string | null
   calories: number | null
   cookingTime: number | null
-  difficulty: $Enums.DifficultyLevel | null
+  difficulty: $Enums.Difficulty | null
   authorId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,6 +64,7 @@ export type RecipeMaxAggregateOutputType = {
 
 export type RecipeCountAggregateOutputType = {
   id: number
+  slug: number
   title: number
   description: number
   calories: number
@@ -86,6 +89,7 @@ export type RecipeSumAggregateInputType = {
 
 export type RecipeMinAggregateInputType = {
   id?: true
+  slug?: true
   title?: true
   description?: true
   calories?: true
@@ -98,6 +102,7 @@ export type RecipeMinAggregateInputType = {
 
 export type RecipeMaxAggregateInputType = {
   id?: true
+  slug?: true
   title?: true
   description?: true
   calories?: true
@@ -110,6 +115,7 @@ export type RecipeMaxAggregateInputType = {
 
 export type RecipeCountAggregateInputType = {
   id?: true
+  slug?: true
   title?: true
   description?: true
   calories?: true
@@ -209,11 +215,12 @@ export type RecipeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type RecipeGroupByOutputType = {
   id: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt: Date
   updatedAt: Date
@@ -244,23 +251,27 @@ export type RecipeWhereInput = {
   OR?: Prisma.RecipeWhereInput[]
   NOT?: Prisma.RecipeWhereInput | Prisma.RecipeWhereInput[]
   id?: Prisma.StringFilter<"Recipe"> | string
+  slug?: Prisma.StringFilter<"Recipe"> | string
   title?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
   calories?: Prisma.IntFilter<"Recipe"> | number
   cookingTime?: Prisma.IntFilter<"Recipe"> | number
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Recipe"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
   authorId?: Prisma.StringFilter<"Recipe"> | string
   createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  recipeIngredients?: Prisma.RecipeIngredientListRelationFilter
+  nutritionFact?: Prisma.XOR<Prisma.NutritionFactNullableScalarRelationFilter, Prisma.NutritionFactWhereInput> | null
+  tags?: Prisma.RecipeTagListRelationFilter
   recipeSteps?: Prisma.RecipeStepListRelationFilter
-  comments?: Prisma.CommentListRelationFilter
+  recipeIngredients?: Prisma.RecipeIngredientListRelationFilter
   likes?: Prisma.LikeListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }
 
 export type RecipeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   calories?: Prisma.SortOrder
@@ -270,14 +281,17 @@ export type RecipeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
-  recipeIngredients?: Prisma.RecipeIngredientOrderByRelationAggregateInput
+  nutritionFact?: Prisma.NutritionFactOrderByWithRelationInput
+  tags?: Prisma.RecipeTagOrderByRelationAggregateInput
   recipeSteps?: Prisma.RecipeStepOrderByRelationAggregateInput
-  comments?: Prisma.CommentOrderByRelationAggregateInput
+  recipeIngredients?: Prisma.RecipeIngredientOrderByRelationAggregateInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  slug?: string
   AND?: Prisma.RecipeWhereInput | Prisma.RecipeWhereInput[]
   OR?: Prisma.RecipeWhereInput[]
   NOT?: Prisma.RecipeWhereInput | Prisma.RecipeWhereInput[]
@@ -285,19 +299,22 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Recipe"> | string
   calories?: Prisma.IntFilter<"Recipe"> | number
   cookingTime?: Prisma.IntFilter<"Recipe"> | number
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Recipe"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
   authorId?: Prisma.StringFilter<"Recipe"> | string
   createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  recipeIngredients?: Prisma.RecipeIngredientListRelationFilter
+  nutritionFact?: Prisma.XOR<Prisma.NutritionFactNullableScalarRelationFilter, Prisma.NutritionFactWhereInput> | null
+  tags?: Prisma.RecipeTagListRelationFilter
   recipeSteps?: Prisma.RecipeStepListRelationFilter
-  comments?: Prisma.CommentListRelationFilter
+  recipeIngredients?: Prisma.RecipeIngredientListRelationFilter
   likes?: Prisma.LikeListRelationFilter
-}, "id">
+  comments?: Prisma.CommentListRelationFilter
+}, "id" | "slug">
 
 export type RecipeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   calories?: Prisma.SortOrder
@@ -318,11 +335,12 @@ export type RecipeScalarWhereWithAggregatesInput = {
   OR?: Prisma.RecipeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RecipeScalarWhereWithAggregatesInput | Prisma.RecipeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   title?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   description?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   calories?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   cookingTime?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
-  difficulty?: Prisma.EnumDifficultyLevelWithAggregatesFilter<"Recipe"> | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyWithAggregatesFilter<"Recipe"> | $Enums.Difficulty
   authorId?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Recipe"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Recipe"> | Date | string
@@ -330,75 +348,88 @@ export type RecipeScalarWhereWithAggregatesInput = {
 
 export type RecipeCreateInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutRecipesInput
-  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
-  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateManyInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -406,22 +437,24 @@ export type RecipeCreateManyInput = {
 
 export type RecipeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RecipeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -434,6 +467,7 @@ export type RecipeScalarRelationFilter = {
 
 export type RecipeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   calories?: Prisma.SortOrder
@@ -451,6 +485,7 @@ export type RecipeAvgOrderByAggregateInput = {
 
 export type RecipeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   calories?: Prisma.SortOrder
@@ -463,6 +498,7 @@ export type RecipeMaxOrderByAggregateInput = {
 
 export type RecipeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   calories?: Prisma.SortOrder
@@ -524,8 +560,8 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type EnumDifficultyLevelFieldUpdateOperationsInput = {
-  set?: $Enums.DifficultyLevel
+export type EnumDifficultyFieldUpdateOperationsInput = {
+  set?: $Enums.Difficulty
 }
 
 export type RecipeCreateNestedOneWithoutRecipeIngredientsInput = {
@@ -554,6 +590,58 @@ export type RecipeUpdateOneRequiredWithoutRecipeStepsNestedInput = {
   upsert?: Prisma.RecipeUpsertWithoutRecipeStepsInput
   connect?: Prisma.RecipeWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.RecipeUpdateToOneWithWhereWithoutRecipeStepsInput, Prisma.RecipeUpdateWithoutRecipeStepsInput>, Prisma.RecipeUncheckedUpdateWithoutRecipeStepsInput>
+}
+
+export type RecipeCreateNestedOneWithoutNutritionFactInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutNutritionFactInput, Prisma.RecipeUncheckedCreateWithoutNutritionFactInput>
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutNutritionFactInput
+  connect?: Prisma.RecipeWhereUniqueInput
+}
+
+export type RecipeUpdateOneRequiredWithoutNutritionFactNestedInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutNutritionFactInput, Prisma.RecipeUncheckedCreateWithoutNutritionFactInput>
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutNutritionFactInput
+  upsert?: Prisma.RecipeUpsertWithoutNutritionFactInput
+  connect?: Prisma.RecipeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RecipeUpdateToOneWithWhereWithoutNutritionFactInput, Prisma.RecipeUpdateWithoutNutritionFactInput>, Prisma.RecipeUncheckedUpdateWithoutNutritionFactInput>
+}
+
+export type RecipeCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput> | Prisma.RecipeCreateWithoutTagsInput[] | Prisma.RecipeUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutTagsInput | Prisma.RecipeCreateOrConnectWithoutTagsInput[]
+  connect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+}
+
+export type RecipeUncheckedCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput> | Prisma.RecipeCreateWithoutTagsInput[] | Prisma.RecipeUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutTagsInput | Prisma.RecipeCreateOrConnectWithoutTagsInput[]
+  connect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+}
+
+export type RecipeUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput> | Prisma.RecipeCreateWithoutTagsInput[] | Prisma.RecipeUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutTagsInput | Prisma.RecipeCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.RecipeUpsertWithWhereUniqueWithoutTagsInput | Prisma.RecipeUpsertWithWhereUniqueWithoutTagsInput[]
+  set?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  disconnect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  delete?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  connect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  update?: Prisma.RecipeUpdateWithWhereUniqueWithoutTagsInput | Prisma.RecipeUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.RecipeUpdateManyWithWhereWithoutTagsInput | Prisma.RecipeUpdateManyWithWhereWithoutTagsInput[]
+  deleteMany?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
+}
+
+export type RecipeUncheckedUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput> | Prisma.RecipeCreateWithoutTagsInput[] | Prisma.RecipeUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.RecipeCreateOrConnectWithoutTagsInput | Prisma.RecipeCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.RecipeUpsertWithWhereUniqueWithoutTagsInput | Prisma.RecipeUpsertWithWhereUniqueWithoutTagsInput[]
+  set?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  disconnect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  delete?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  connect?: Prisma.RecipeWhereUniqueInput | Prisma.RecipeWhereUniqueInput[]
+  update?: Prisma.RecipeUpdateWithWhereUniqueWithoutTagsInput | Prisma.RecipeUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.RecipeUpdateManyWithWhereWithoutTagsInput | Prisma.RecipeUpdateManyWithWhereWithoutTagsInput[]
+  deleteMany?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
 }
 
 export type RecipeCreateNestedManyWithoutAuthorInput = {
@@ -600,31 +688,37 @@ export type RecipeUncheckedUpdateManyWithoutAuthorNestedInput = {
 
 export type RecipeCreateWithoutCommentsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutRecipesInput
-  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutCommentsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
 }
 
@@ -646,61 +740,73 @@ export type RecipeUpdateToOneWithWhereWithoutCommentsInput = {
 
 export type RecipeUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
-  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutLikesInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutRecipesInput
-  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
   comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutLikesInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
 }
 
@@ -722,62 +828,74 @@ export type RecipeUpdateToOneWithWhereWithoutLikesInput = {
 
 export type RecipeUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
-  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
   comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutRecipeIngredientsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutRecipesInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutRecipeIngredientsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutRecipeIngredientsInput = {
@@ -798,62 +916,74 @@ export type RecipeUpdateToOneWithWhereWithoutRecipeIngredientsInput = {
 
 export type RecipeUpdateWithoutRecipeIngredientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutRecipeIngredientsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeCreateWithoutRecipeStepsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutRecipesInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutRecipeStepsInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   authorId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutRecipeStepsInput = {
@@ -874,62 +1004,235 @@ export type RecipeUpdateToOneWithWhereWithoutRecipeStepsInput = {
 
 export type RecipeUpdateWithoutRecipeStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutRecipeStepsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   authorId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeCreateWithoutNutritionFactInput = {
+  id?: string
+  slug: string
+  title: string
+  description: string
+  calories: number
+  cookingTime: number
+  difficulty: $Enums.Difficulty
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutRecipesInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
+  recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeUncheckedCreateWithoutNutritionFactInput = {
+  id?: string
+  slug: string
+  title: string
+  description: string
+  calories: number
+  cookingTime: number
+  difficulty: $Enums.Difficulty
+  authorId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
+  recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeCreateOrConnectWithoutNutritionFactInput = {
+  where: Prisma.RecipeWhereUniqueInput
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutNutritionFactInput, Prisma.RecipeUncheckedCreateWithoutNutritionFactInput>
+}
+
+export type RecipeUpsertWithoutNutritionFactInput = {
+  update: Prisma.XOR<Prisma.RecipeUpdateWithoutNutritionFactInput, Prisma.RecipeUncheckedUpdateWithoutNutritionFactInput>
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutNutritionFactInput, Prisma.RecipeUncheckedCreateWithoutNutritionFactInput>
+  where?: Prisma.RecipeWhereInput
+}
+
+export type RecipeUpdateToOneWithWhereWithoutNutritionFactInput = {
+  where?: Prisma.RecipeWhereInput
+  data: Prisma.XOR<Prisma.RecipeUpdateWithoutNutritionFactInput, Prisma.RecipeUncheckedUpdateWithoutNutritionFactInput>
+}
+
+export type RecipeUpdateWithoutNutritionFactInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
+  recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeUncheckedUpdateWithoutNutritionFactInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
+  recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeCreateWithoutTagsInput = {
+  id?: string
+  slug: string
+  title: string
+  description: string
+  calories: number
+  cookingTime: number
+  difficulty: $Enums.Difficulty
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author: Prisma.UserCreateNestedOneWithoutRecipesInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeUncheckedCreateWithoutTagsInput = {
+  id?: string
+  slug: string
+  title: string
+  description: string
+  calories: number
+  cookingTime: number
+  difficulty: $Enums.Difficulty
+  authorId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
+}
+
+export type RecipeCreateOrConnectWithoutTagsInput = {
+  where: Prisma.RecipeWhereUniqueInput
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput>
+}
+
+export type RecipeUpsertWithWhereUniqueWithoutTagsInput = {
+  where: Prisma.RecipeWhereUniqueInput
+  update: Prisma.XOR<Prisma.RecipeUpdateWithoutTagsInput, Prisma.RecipeUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.RecipeCreateWithoutTagsInput, Prisma.RecipeUncheckedCreateWithoutTagsInput>
+}
+
+export type RecipeUpdateWithWhereUniqueWithoutTagsInput = {
+  where: Prisma.RecipeWhereUniqueInput
+  data: Prisma.XOR<Prisma.RecipeUpdateWithoutTagsInput, Prisma.RecipeUncheckedUpdateWithoutTagsInput>
+}
+
+export type RecipeUpdateManyWithWhereWithoutTagsInput = {
+  where: Prisma.RecipeScalarWhereInput
+  data: Prisma.XOR<Prisma.RecipeUpdateManyMutationInput, Prisma.RecipeUncheckedUpdateManyWithoutTagsInput>
+}
+
+export type RecipeScalarWhereInput = {
+  AND?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
+  OR?: Prisma.RecipeScalarWhereInput[]
+  NOT?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
+  id?: Prisma.StringFilter<"Recipe"> | string
+  slug?: Prisma.StringFilter<"Recipe"> | string
+  title?: Prisma.StringFilter<"Recipe"> | string
+  description?: Prisma.StringFilter<"Recipe"> | string
+  calories?: Prisma.IntFilter<"Recipe"> | number
+  cookingTime?: Prisma.IntFilter<"Recipe"> | number
+  difficulty?: Prisma.EnumDifficultyFilter<"Recipe"> | $Enums.Difficulty
+  authorId?: Prisma.StringFilter<"Recipe"> | string
+  createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
 }
 
 export type RecipeCreateWithoutAuthorInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeUncheckedCreateWithoutAuthorInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
+  nutritionFact?: Prisma.NutritionFactUncheckedCreateNestedOneWithoutRecipeInput
+  tags?: Prisma.RecipeTagUncheckedCreateNestedManyWithoutRecipesInput
   recipeSteps?: Prisma.RecipeStepUncheckedCreateNestedManyWithoutRecipeInput
-  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedCreateNestedManyWithoutRecipeInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutRecipeInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutRecipeInput
 }
 
 export type RecipeCreateOrConnectWithoutAuthorInput = {
@@ -958,69 +1261,111 @@ export type RecipeUpdateManyWithWhereWithoutAuthorInput = {
   data: Prisma.XOR<Prisma.RecipeUpdateManyMutationInput, Prisma.RecipeUncheckedUpdateManyWithoutAuthorInput>
 }
 
-export type RecipeScalarWhereInput = {
-  AND?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
-  OR?: Prisma.RecipeScalarWhereInput[]
-  NOT?: Prisma.RecipeScalarWhereInput | Prisma.RecipeScalarWhereInput[]
-  id?: Prisma.StringFilter<"Recipe"> | string
-  title?: Prisma.StringFilter<"Recipe"> | string
-  description?: Prisma.StringFilter<"Recipe"> | string
-  calories?: Prisma.IntFilter<"Recipe"> | number
-  cookingTime?: Prisma.IntFilter<"Recipe"> | number
-  difficulty?: Prisma.EnumDifficultyLevelFilter<"Recipe"> | $Enums.DifficultyLevel
-  authorId?: Prisma.StringFilter<"Recipe"> | string
-  createdAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Recipe"> | Date | string
+export type RecipeUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.UserUpdateOneRequiredWithoutRecipesNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeUncheckedUpdateWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
+}
+
+export type RecipeUncheckedUpdateManyWithoutTagsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  calories?: Prisma.IntFieldUpdateOperationsInput | number
+  cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+  authorId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RecipeCreateManyAuthorInput = {
   id?: string
+  slug: string
   title: string
   description: string
   calories: number
   cookingTime: number
-  difficulty: $Enums.DifficultyLevel
+  difficulty: $Enums.Difficulty
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type RecipeUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
+  nutritionFact?: Prisma.NutritionFactUncheckedUpdateOneWithoutRecipeNestedInput
+  tags?: Prisma.RecipeTagUncheckedUpdateManyWithoutRecipesNestedInput
   recipeSteps?: Prisma.RecipeStepUncheckedUpdateManyWithoutRecipeNestedInput
-  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
+  recipeIngredients?: Prisma.RecipeIngredientUncheckedUpdateManyWithoutRecipeNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutRecipeNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutRecipeNestedInput
 }
 
 export type RecipeUncheckedUpdateManyWithoutAuthorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   calories?: Prisma.IntFieldUpdateOperationsInput | number
   cookingTime?: Prisma.IntFieldUpdateOperationsInput | number
-  difficulty?: Prisma.EnumDifficultyLevelFieldUpdateOperationsInput | $Enums.DifficultyLevel
+  difficulty?: Prisma.EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1031,17 +1376,19 @@ export type RecipeUncheckedUpdateManyWithoutAuthorInput = {
  */
 
 export type RecipeCountOutputType = {
-  recipeIngredients: number
+  tags: number
   recipeSteps: number
-  comments: number
+  recipeIngredients: number
   likes: number
+  comments: number
 }
 
 export type RecipeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  recipeIngredients?: boolean | RecipeCountOutputTypeCountRecipeIngredientsArgs
+  tags?: boolean | RecipeCountOutputTypeCountTagsArgs
   recipeSteps?: boolean | RecipeCountOutputTypeCountRecipeStepsArgs
-  comments?: boolean | RecipeCountOutputTypeCountCommentsArgs
+  recipeIngredients?: boolean | RecipeCountOutputTypeCountRecipeIngredientsArgs
   likes?: boolean | RecipeCountOutputTypeCountLikesArgs
+  comments?: boolean | RecipeCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -1057,8 +1404,8 @@ export type RecipeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * RecipeCountOutputType without action
  */
-export type RecipeCountOutputTypeCountRecipeIngredientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RecipeIngredientWhereInput
+export type RecipeCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecipeTagWhereInput
 }
 
 /**
@@ -1071,8 +1418,8 @@ export type RecipeCountOutputTypeCountRecipeStepsArgs<ExtArgs extends runtime.Ty
 /**
  * RecipeCountOutputType without action
  */
-export type RecipeCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CommentWhereInput
+export type RecipeCountOutputTypeCountRecipeIngredientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecipeIngredientWhereInput
 }
 
 /**
@@ -1082,9 +1429,17 @@ export type RecipeCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.LikeWhereInput
 }
 
+/**
+ * RecipeCountOutputType without action
+ */
+export type RecipeCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
+}
+
 
 export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
   title?: boolean
   description?: boolean
   calories?: boolean
@@ -1094,15 +1449,18 @@ export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  recipeIngredients?: boolean | Prisma.Recipe$recipeIngredientsArgs<ExtArgs>
+  nutritionFact?: boolean | Prisma.Recipe$nutritionFactArgs<ExtArgs>
+  tags?: boolean | Prisma.Recipe$tagsArgs<ExtArgs>
   recipeSteps?: boolean | Prisma.Recipe$recipeStepsArgs<ExtArgs>
-  comments?: boolean | Prisma.Recipe$commentsArgs<ExtArgs>
+  recipeIngredients?: boolean | Prisma.Recipe$recipeIngredientsArgs<ExtArgs>
   likes?: boolean | Prisma.Recipe$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Recipe$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.RecipeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recipe"]>
 
 export type RecipeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
   title?: boolean
   description?: boolean
   calories?: boolean
@@ -1116,6 +1474,7 @@ export type RecipeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type RecipeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
   title?: boolean
   description?: boolean
   calories?: boolean
@@ -1129,6 +1488,7 @@ export type RecipeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 
 export type RecipeSelectScalar = {
   id?: boolean
+  slug?: boolean
   title?: boolean
   description?: boolean
   calories?: boolean
@@ -1139,13 +1499,15 @@ export type RecipeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "calories" | "cookingTime" | "difficulty" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["recipe"]>
+export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "description" | "calories" | "cookingTime" | "difficulty" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["recipe"]>
 export type RecipeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  recipeIngredients?: boolean | Prisma.Recipe$recipeIngredientsArgs<ExtArgs>
+  nutritionFact?: boolean | Prisma.Recipe$nutritionFactArgs<ExtArgs>
+  tags?: boolean | Prisma.Recipe$tagsArgs<ExtArgs>
   recipeSteps?: boolean | Prisma.Recipe$recipeStepsArgs<ExtArgs>
-  comments?: boolean | Prisma.Recipe$commentsArgs<ExtArgs>
+  recipeIngredients?: boolean | Prisma.Recipe$recipeIngredientsArgs<ExtArgs>
   likes?: boolean | Prisma.Recipe$likesArgs<ExtArgs>
+  comments?: boolean | Prisma.Recipe$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.RecipeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RecipeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1159,18 +1521,21 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Recipe"
   objects: {
     author: Prisma.$UserPayload<ExtArgs>
-    recipeIngredients: Prisma.$RecipeIngredientPayload<ExtArgs>[]
+    nutritionFact: Prisma.$NutritionFactPayload<ExtArgs> | null
+    tags: Prisma.$RecipeTagPayload<ExtArgs>[]
     recipeSteps: Prisma.$RecipeStepPayload<ExtArgs>[]
-    comments: Prisma.$CommentPayload<ExtArgs>[]
+    recipeIngredients: Prisma.$RecipeIngredientPayload<ExtArgs>[]
     likes: Prisma.$LikePayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    slug: string
     title: string
     description: string
     calories: number
     cookingTime: number
-    difficulty: $Enums.DifficultyLevel
+    difficulty: $Enums.Difficulty
     authorId: string
     createdAt: Date
     updatedAt: Date
@@ -1569,10 +1934,12 @@ readonly fields: RecipeFieldRefs;
 export interface Prisma__RecipeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  recipeIngredients<T extends Prisma.Recipe$recipeIngredientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$recipeIngredientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeIngredientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  nutritionFact<T extends Prisma.Recipe$nutritionFactArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$nutritionFactArgs<ExtArgs>>): Prisma.Prisma__NutritionFactClient<runtime.Types.Result.GetResult<Prisma.$NutritionFactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.Recipe$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recipeSteps<T extends Prisma.Recipe$recipeStepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$recipeStepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  comments<T extends Prisma.Recipe$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recipeIngredients<T extends Prisma.Recipe$recipeIngredientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$recipeIngredientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeIngredientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.Recipe$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Recipe$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recipe$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1603,11 +1970,12 @@ export interface Prisma__RecipeClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface RecipeFieldRefs {
   readonly id: Prisma.FieldRef<"Recipe", 'String'>
+  readonly slug: Prisma.FieldRef<"Recipe", 'String'>
   readonly title: Prisma.FieldRef<"Recipe", 'String'>
   readonly description: Prisma.FieldRef<"Recipe", 'String'>
   readonly calories: Prisma.FieldRef<"Recipe", 'Int'>
   readonly cookingTime: Prisma.FieldRef<"Recipe", 'Int'>
-  readonly difficulty: Prisma.FieldRef<"Recipe", 'DifficultyLevel'>
+  readonly difficulty: Prisma.FieldRef<"Recipe", 'Difficulty'>
   readonly authorId: Prisma.FieldRef<"Recipe", 'String'>
   readonly createdAt: Prisma.FieldRef<"Recipe", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Recipe", 'DateTime'>
@@ -2007,27 +2375,46 @@ export type RecipeDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Recipe.recipeIngredients
+ * Recipe.nutritionFact
  */
-export type Recipe$recipeIngredientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Recipe$nutritionFactArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RecipeIngredient
+   * Select specific fields to fetch from the NutritionFact
    */
-  select?: Prisma.RecipeIngredientSelect<ExtArgs> | null
+  select?: Prisma.NutritionFactSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RecipeIngredient
+   * Omit specific fields from the NutritionFact
    */
-  omit?: Prisma.RecipeIngredientOmit<ExtArgs> | null
+  omit?: Prisma.NutritionFactOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RecipeIngredientInclude<ExtArgs> | null
-  where?: Prisma.RecipeIngredientWhereInput
-  orderBy?: Prisma.RecipeIngredientOrderByWithRelationInput | Prisma.RecipeIngredientOrderByWithRelationInput[]
-  cursor?: Prisma.RecipeIngredientWhereUniqueInput
+  include?: Prisma.NutritionFactInclude<ExtArgs> | null
+  where?: Prisma.NutritionFactWhereInput
+}
+
+/**
+ * Recipe.tags
+ */
+export type Recipe$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RecipeTag
+   */
+  select?: Prisma.RecipeTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RecipeTag
+   */
+  omit?: Prisma.RecipeTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecipeTagInclude<ExtArgs> | null
+  where?: Prisma.RecipeTagWhereInput
+  orderBy?: Prisma.RecipeTagOrderByWithRelationInput | Prisma.RecipeTagOrderByWithRelationInput[]
+  cursor?: Prisma.RecipeTagWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RecipeIngredientScalarFieldEnum | Prisma.RecipeIngredientScalarFieldEnum[]
+  distinct?: Prisma.RecipeTagScalarFieldEnum | Prisma.RecipeTagScalarFieldEnum[]
 }
 
 /**
@@ -2055,27 +2442,27 @@ export type Recipe$recipeStepsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * Recipe.comments
+ * Recipe.recipeIngredients
  */
-export type Recipe$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Recipe$recipeIngredientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Comment
+   * Select specific fields to fetch from the RecipeIngredient
    */
-  select?: Prisma.CommentSelect<ExtArgs> | null
+  select?: Prisma.RecipeIngredientSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Comment
+   * Omit specific fields from the RecipeIngredient
    */
-  omit?: Prisma.CommentOmit<ExtArgs> | null
+  omit?: Prisma.RecipeIngredientOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CommentInclude<ExtArgs> | null
-  where?: Prisma.CommentWhereInput
-  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
-  cursor?: Prisma.CommentWhereUniqueInput
+  include?: Prisma.RecipeIngredientInclude<ExtArgs> | null
+  where?: Prisma.RecipeIngredientWhereInput
+  orderBy?: Prisma.RecipeIngredientOrderByWithRelationInput | Prisma.RecipeIngredientOrderByWithRelationInput[]
+  cursor?: Prisma.RecipeIngredientWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
+  distinct?: Prisma.RecipeIngredientScalarFieldEnum | Prisma.RecipeIngredientScalarFieldEnum[]
 }
 
 /**
@@ -2100,6 +2487,30 @@ export type Recipe$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
+}
+
+/**
+ * Recipe.comments
+ */
+export type Recipe$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**

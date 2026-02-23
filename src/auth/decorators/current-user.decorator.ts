@@ -1,9 +1,9 @@
-import { createParamDecorator, UnauthorizedException } from '@nestjs/common'
-import { TCurrentUser, TRequestWithUser } from '../auth.interface'
+import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
+import type { TCurrentUser, TRequestWithUser } from '../auth.interface'
 
-export const currentUser = createParamDecorator(
-	(data: keyof TCurrentUser, ctx) => {
+export const CurrentUser = createParamDecorator(
+	(data: keyof TCurrentUser, ctx: ExecutionContext) => {
 		let user: TCurrentUser | null | undefined = null
 
 		if (ctx.getType() === 'http') {
@@ -12,17 +12,12 @@ export const currentUser = createParamDecorator(
 			const context = GqlExecutionContext.create(ctx)
 			user = context.getContext<{ req: TRequestWithUser }>().req.user
 		}
-		if (!user) {
-			throw new UnauthorizedException('User not authenticated')
-		}
+
+		if (!user) return null
 
 		return data ? user[data] : user
-	},
+	}
 )
 
-//@CurrentUser() decorator can be used in controller methods to access the currently authenticated user from the request object.
-// For example:
-// @Get('profile')
-// getProfile(@CurrentUser() user: User) {
-//     return user;
-// }
+// @CurrentUser() user: UserModel
+// @CurrentUser('id') userId: string

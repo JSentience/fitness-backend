@@ -14,12 +14,12 @@ import * as process from 'node:process'
 import * as path from 'node:path'
 
 import * as runtime from "@prisma/client/runtime/client"
-import * as $Enums from "./enums"
-import * as $Class from "./internal/class"
-import * as Prisma from "./internal/prismaNamespace"
+import * as $Enums from "./enums.js"
+import * as $Class from "./internal/class.js"
+import * as Prisma from "./internal/prismaNamespace.js"
 
-export * as $Enums from './enums'
-export * from "./enums"
+export * as $Enums from './enums.js'
+export * from "./enums.js"
 /**
  * ## Prisma Client
  * 
@@ -27,8 +27,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Orders
- * const orders = await prisma.order.findMany()
+ * // Fetch zero or more Ingredients
+ * const ingredients = await prisma.ingredient.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -37,6 +37,11 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Ingredient
+ * 
+ */
+export type Ingredient = Prisma.IngredientModel
 /**
  * Model Order
  * 
@@ -68,11 +73,6 @@ export type Like = Prisma.LikeModel
  */
 export type Recipe = Prisma.RecipeModel
 /**
- * Model Ingredient
- * 
- */
-export type Ingredient = Prisma.IngredientModel
-/**
  * Model RecipeIngredient
  * 
  */
@@ -82,6 +82,16 @@ export type RecipeIngredient = Prisma.RecipeIngredientModel
  * 
  */
 export type RecipeStep = Prisma.RecipeStepModel
+/**
+ * Model NutritionFact
+ * 
+ */
+export type NutritionFact = Prisma.NutritionFactModel
+/**
+ * Model RecipeTag
+ * 
+ */
+export type RecipeTag = Prisma.RecipeTagModel
 /**
  * Model User
  * 

@@ -1,10 +1,9 @@
-import { CanActivate } from '@nestjs/common'
+import { ForbiddenError } from '@nestjs/apollo'
+import { CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import type { TRequestWithUser } from '../auth.interface'
-import { Role } from 'prisma/generated/prisma/enums'
-import { ExecutionContext } from '@nestjs/common'
-import { ForbiddenError } from '@nestjs/apollo'
+import { Role } from 'prisma/generated/graphql/prisma/role.enum'
+import { TRequestWithUser } from '../auth.interface'
 
 export class AdminGuard implements CanActivate {
 	constructor(private reflector: Reflector) {}
@@ -14,8 +13,11 @@ export class AdminGuard implements CanActivate {
 		const user = ctx.getContext<{ req: TRequestWithUser }>().req.user
 
 		if (user?.role !== Role.ADMIN) {
-			throw new ForbiddenError('Access denied: Admins only')
+			throw new ForbiddenError(
+				"You don't have permission to access this resource",
+			)
 		}
+
 		return true
 	}
 }

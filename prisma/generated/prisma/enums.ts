@@ -9,6 +9,18 @@
 * 🟢 You can import this file directly.
 */
 
+export const Unit = {
+  GRAM: 'GRAM',
+  MILLILITER: 'MILLILITER',
+  PIECE: 'PIECE',
+  TEASPOON: 'TEASPOON',
+  TABLESPOON: 'TABLESPOON',
+  CLOVES: 'CLOVES'
+} as const
+
+export type Unit = (typeof Unit)[keyof typeof Unit]
+
+
 export const OrderStatus = {
   PENDING: 'PENDING',
   PROCESSING: 'PROCESSING',
@@ -19,28 +31,13 @@ export const OrderStatus = {
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 
-export const DifficultyLevel = {
+export const Difficulty = {
   EASY: 'EASY',
   MEDIUM: 'MEDIUM',
   HARD: 'HARD'
 } as const
 
-export type DifficultyLevel = (typeof DifficultyLevel)[keyof typeof DifficultyLevel]
-
-
-export const Unit = {
-  GRAM: 'GRAM',
-  KILOGRAM: 'KILOGRAM',
-  MILLILITER: 'MILLILITER',
-  LITER: 'LITER',
-  CUP: 'CUP',
-  TABLESPOON: 'TABLESPOON',
-  TEASPOON: 'TEASPOON',
-  PIECE: 'PIECE',
-  CLOVES: 'CLOVES'
-} as const
-
-export type Unit = (typeof Unit)[keyof typeof Unit]
+export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
 
 export const Role = {
